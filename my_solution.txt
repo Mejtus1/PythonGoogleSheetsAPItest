@@ -1,0 +1,102 @@
+This is my flow of operations for this exercise for better understanding of my decisions and internal process
+
+1. BASICS 
+I have created folder inside which I put CSV file and my python file. 
+mock_transactions_final.CSV
+analysis.py
+
+2. DOCS and STARTING OUT 
+Since I needed to refresh my Python skills, I watched 2 tutorial videos on this matter which took me about 10 minutes (2x speed). 
+To get back up to speed on essential tools required for this task — namely Python and Pandas. 
+I also used ChatGPT to assist me with crafting code, particularly for rearranging data. 
+Throughout the code, I’ve left my own comments as well as some suggestions from ChatGPT that I decided to keep for clarity and better understanding. 
+I want to be transparent about the resources I used and the approach I took.
+- those are resources I used or looked at through my working on this project: 
+https://pandas.pydata.org/docs/user_guide/index.html#user-guide
+https://www.youtube.com/watch?v=fwUVe1IddO4&ab_channel=GregKamradt
+https://www.youtube.com/watch?v=ClNP-lTzKgI&ab_channel=JohnWatsonRooney
+
+3. RUNNING SCRIPT
+- upon running and refining the script I got final output in terminal: 
+
+matus@LAPTOP-33US5PB5 MINGW64 ~/Desktop/ZigExercise
+$ python analysis.py 
+
+Account: ZignalyX120
+Up to: 2025-01-30 08:42:00
+
+Totals by Transaction Type:
+ - deposit: +7127.00 
+ - fee: -3065.92 
+ - loss: -273.46 
+ - profit: +2473.84 
+ - withdrawal: -1467.28 
+
+Final Balance: 4794.18 
+
+4. TRANSACTION CORRELATION 
+I have created second python script with help of chatgpt and my refining. 
+- this script shows in terminal all the transactions until specified Timestamp
+- at the end can be seen weather the transaction was positive or negative from the specified account 
+
+matus@LAPTOP-33US5PB5 MINGW64 ~/Desktop/ZigExercise
+$ python transaction_flow.py
+
+All transactions affecting ZignalyX120 up to 2025-01-30 08:42:00:
+
+2025-01-25 08:42:00 | fee        | Amount: 3065.920854 | From: ZignalyX120 -> To: Zignaly678d4 | Effect: -
+2025-01-26 08:42:00 | loss       | Amount: 273.461974 | From: ZignalyX120 -> To: Zignaly678d4 | Effect: -
+2025-01-27 08:42:00 | profit     | Amount: 2473.836192 | From: nan -> To: ZignalyX120 | Effect: +
+2025-01-28 08:42:00 | deposit    | Amount: 2248.541933 | From: nan -> To: ZignalyX120 | Effect: +
+2025-01-29 08:42:00 | deposit    | Amount: 4878.462957 | From: nan -> To: ZignalyX120 | Effect: +
+2025-01-30 08:42:00 | withdrawal | Amount: 1467.275087 | From: ZignalyX120 -> To: Zignaly678d4 | Effect: -
+
+Final Balance: 4794.18
+
+5. FINAL FILE 
+I have used this video for google sheets for better understanding of google cloud and google sheets since I did not work with it before this exercise in any practical manner 
+https://www.youtube.com/watch?v=zCEJurLGFRk&ab_channel=TechWithTim
+I spent quite time troubleshooting errors in google sheets json format conversion to show right in final output 
+below is also terminal successfull terminal output which is from combined_analysis.py
+- combined_analysis.py combines transaction_flow.py and analysis.py and I also added google sheets API with creation of report 
+- report can be accessed at https://docs.google.com/spreadsheets/d/179UXu4f83bNfAAM0xEQ1n4g_qRlGx9OSCl1AOzko0jw/edit?gid=0#gid=0
+(the file name combined_analysis2.py was named like that because this was second refined version of combined_analysis file and I did not want to lose previous one until this one worked)
+
+
+matus@LAPTOP-33US5PB5 MINGW64 ~/Desktop/ZigExercise
+$ python combined_analysis2.py
+
+All transactions affecting ZignalyX120 up to 2025-01-30 08:42:00:
+
+2025-01-25 08:42:00 | fee        | Amount: 3065.920854 | From: ZignalyX120 -> To: Zignaly678d4 | Effect: -  
+2025-01-26 08:42:00 | loss       | Amount: 273.461974 | From: ZignalyX120 -> To: Zignaly678d4 | Effect: -   
+2025-01-27 08:42:00 | profit     | Amount: 2473.836192 | From: nan -> To: ZignalyX120 | Effect: +
+2025-01-28 08:42:00 | deposit    | Amount: 2248.541933 | From: nan -> To: ZignalyX120 | Effect: +
+2025-01-29 08:42:00 | deposit    | Amount: 4878.462957 | From: nan -> To: ZignalyX120 | Effect: +
+2025-01-30 08:42:00 | withdrawal | Amount: 1467.275087 | From: ZignalyX120 -> To: Zignaly678d4 | Effect: -  
+
+Final Balance: 4794.18
+
+
+Account: ZignalyX120
+Up to: 2025-01-30 08:42:00
+
+Totals by Transaction Type:
+ - deposit: +7127.00
+ - fee: -3065.92
+ - loss: -273.46
+ - profit: +2473.84
+ - withdrawal: -1467.28
+
+Final Balance: 4794.18
+
+Exporting to Google Sheets...
+C:\Users\matus\Desktop\ZigExercise\combined_analysis2.py:66: DeprecationWarning: The order of arguments in worksheet.update() has changed. Please pass values first and range_name secondor used named arguments (range_name=, values=)
+  sheet.update('A1', [['Timestamp', 'Type', 'Amount', 'From', 'To', 'Effect']])
+C:\Users\matus\Desktop\ZigExercise\combined_analysis2.py:72: DeprecationWarning: The order of arguments in worksheet.update() has changed. Please pass values first and range_name secondor used named arguments (range_name=, values=)
+  sheet.update(f'A2:F{len(rows)+1}', rows)
+C:\Users\matus\Desktop\ZigExercise\combined_analysis2.py:76: DeprecationWarning: The order of arguments in worksheet.update() has changed. Please pass values first and range_name secondor used named arguments (range_name=, values=)
+  sheet.update(f'A{summary_start}', [['Transaction Type', 'Total Effect']])
+C:\Users\matus\Desktop\ZigExercise\combined_analysis2.py:79: DeprecationWarning: The order of arguments in worksheet.update() has changed. Please pass values first and range_name secondor used named arguments (range_name=, values=)
+  sheet.update(f'A{summary_start+1}:B{summary_start+len(summary_rows)}', summary_rows)
+✅ Report created: https://docs.google.com/spreadsheets/d/179UXu4f83bNfAAM0xEQ1n4g_qRlGx9OSCl1AOzko0jw      
